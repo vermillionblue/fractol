@@ -6,14 +6,14 @@
 
 NAME = fractol
 
-SRCS = start.c
+SRCS = start.c help.c mandelbrot.c
 
 CC = gcc
 
 CFLAGS = -Werror -Wextra -Wall 
 
 $(NAME): 
-	$(CC) ${SRCS} libmlx42.a libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
+	$(CC) ${SRCS} libmlx42.a libglfw3.a libft/libft.a -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
 
 all: $(NAME)
 

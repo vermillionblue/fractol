@@ -1,25 +1,65 @@
-#include "MLX42/include/MLX42/MLX42.h"
-
 #include <stdlib.h>
 #include <stdio.h>
-#define WIDTH 256
-#define HEIGHT 256
 
-static mlx_image_t *g_img;
+#include "fractol.h"
 
-
-int32_t	main(void)
+void start()
 {
 	mlx_t	*mlx;
+	t_data data;
 
+	static mlx_image_t *g_img;
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
 		exit(EXIT_FAILURE);
-        g_img = mlx_new_image(mlx, 128, 128);    // Creates a new image.
-        mlx_image_to_window(mlx, g_img, 0, 0);   // Adds an image to the render queue.
-        mlx_put_pixel(g_img, 64, 64, 0xFFFFFFFF); // Single white pixel in the middle.
+	g_img = mlx_new_image(mlx, WIDTH, HEIGHT);  // Creates a new image.
+	mlx_image_to_window(mlx, g_img, 0, 0);
+	boundaries_mandelbrot(&data);
+	draw_mb(g_img, &data, mlx);
+}
+
+void drawcircle()
+{
+	mlx_t	*mlx;
+
+	static mlx_image_t *g_img;
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	g_img = mlx_new_image(mlx, WIDTH, HEIGHT);  // Creates a new image.
+	mlx_image_to_window(mlx, g_img, 0, 0);  // Adds an image to the render queue.
+	float y = 0;
+	float x = 0;
+
+	int h = 500;
+	int k = 500;
+
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			//(pow((x - h), 2)) + (pow((y - k), 2)) == 50000
+			if ((pow((x - h), 2.0) + (pow((y - k), 2.0))) < 50000)
+				mlx_put_pixel(g_img, x, y, 0x000000);
+			else
+				mlx_put_pixel(g_img, x, y, 0x9BB1FF);
+			x++	;
+		}
+		y++;
+	}
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, g_img); // Once the application request an exit, cleanup.
 	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+}
+
+
+
+int	main(int argc, char **argv)
+{
+	if (argc == 2)
+		draw_mb();
+	else
+		print_help();
+	return (0);
 }
