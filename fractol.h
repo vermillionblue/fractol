@@ -13,8 +13,8 @@
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 1280
+# define HEIGHT 720
 # define MAX_ITERS 50
 
 typedef struct		s_complex

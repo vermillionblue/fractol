@@ -3,6 +3,8 @@
 
 #include "fractol.h"
 
+
+
 void start()
 {
 	mlx_t	*mlx;
@@ -41,9 +43,9 @@ void drawcircle()
 		{
 			//(pow((x - h), 2)) + (pow((y - k), 2)) == 50000
 			if ((pow((x - h), 2.0) + (pow((y - k), 2.0))) < 50000)
-				mlx_put_pixel(g_img, x, y, 0x000000);
+				mlx_put_pixel(g_img, x, y, 0x00000000);
 			else
-				mlx_put_pixel(g_img, x, y, 0x9BB1FF);
+				mlx_put_pixel(g_img, x, y, 0x01FF4FFF);
 			x++	;
 		}
 		y++;
