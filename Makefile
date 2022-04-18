@@ -6,7 +6,7 @@
 #    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 11:29:43 by danisanc          #+#    #+#              #
-#    Updated: 2022/04/11 23:57:34 by danisanc         ###   ########.fr        #
+#    Updated: 2022/04/11 23:59:27 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fractol
 SRCS = start.c help.c mandelbrot.c color.c
 
 CC = gcc
-
+	
 CFLAGS = -Wextra -Wall -Werror
 
 #$(CC) ${SRCS} libmlx42.a libglfw3.a libft/libft.a -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)

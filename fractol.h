@@ -26,12 +26,16 @@ typedef struct		s_complex
 typedef struct		s_data
 {
 	char			*title;
+	double			zoom;
 	double			maxiters;
 	double			r_max;
 	double			r_min;
 	double			i_max;
+	double			i_min;
+	int32_t			mx; //mouse position
+	int32_t			my;
 	mlx_image_t		*g_img;
-	double			i_min;	
+	mlx_t			*mlx;
 }					t_data;
 
 void    print_help(void);
