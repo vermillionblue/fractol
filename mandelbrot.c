@@ -1,13 +1,17 @@
 #include "fractol.h"
 #include <stdio.h>
 
-void iter_mb(t_data *data);
 
-void my_hook(void *param)
+int iter_mb(t_data *data);
+
+int my_hook(int keysym, t_data *data)
 {
-	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
-		mlx_close_window(param);
+	if (keysym == 53)
+		mlx_destroy_window(data->mlx, data->mlx_win);
+	exit(0);
+	return (0);
 }
+
 
 double lerp(double start, double end, double step)
 {
@@ -24,22 +28,23 @@ void scr2obj(t_data *data)
 	data->my = m_im;
 }
 
-void    zoom(t_data *data, int direction)
+void    zoom(t_data *data, int x, int y, int direction)
 {
-	int32_t	zoom_v, step;
+	double	zoom_v, step;
+	step = 1.02;
 	zoom_v = 1.02;
-	mlx_get_mouse_pos(data->mlx, data->my, data->mx);
-	printf("%d x and %d y\n", data->mx, data->my);
-	scr2obj(&data);
+	data->mx = x;
+	data->my = y;
+	scr2obj(data);
 	if (direction)
 	{
 		
-		step *= 1.25;
+		step *= 0.25;
 		//data->zoom = zoom_v / data->zoom;
 	}
 	else
 	{
-		step /=  1.25;
+		step /=  0.25;
 		//data->zoom = data->zoom / zoom_v;
 	}
 		data->r_max = lerp(data->mx, data->r_max, step);
@@ -48,23 +53,14 @@ void    zoom(t_data *data, int direction)
    		data->i_min = lerp(data->my, data->i_min, step);
     
 }
-void my_scroll(double xdelta, double ydelta, void *data)
+int mouse_hook(int keynum, int x, int y, void *data)
 {
-	int i = 0;
-	int32_t mx,  my, zoom_v, step;
-	zoom_v = 1.02;
-
-	if (ydelta > 0)
-	{
-		zoom(&data, 1);
-		iter_mb(&data);
-	}
-	else
-	{
-		zoom(&data, 0);
-		iter_mb(&data);
-	}
-	
+	if (keynum == 5)
+		zoom(data, x, y, 1);
+	if(keynum == 4)
+		zoom(data, x, y,0);
+	iter_mb(data);
+	return (0);
 }
 
 void    boundaries_mandelbrot(t_data *data)
@@ -113,11 +109,11 @@ double  calculate(t_complex in, t_data *data)
     }
     if (i == MAX_ITERS)
         return (i);
-	//return ( i  + 1 - log(log((magnitute(z))))/log(2));
-    return ( i  + 1 - log(log((magnitute(z))))/log(2));
+	return ( i  + 1 - log(log((magnitute(z))))/log(2)); //swirl mode
+    //return ( i  + 1 - log(log((magnitute(z))))/log(2));
 }
 
-void iter_mb(t_data *data)
+int iter_mb(t_data *data)
 {
 	t_complex in;
 	int x;
@@ -136,34 +132,41 @@ void iter_mb(t_data *data)
 			in.im =(double) (data->i_min + (double)y / ((double)HEIGHT)*((data->i_max - data->i_min)));
             m = calculate(in, data);
 			if (m != MAX_ITERS)
-            	color( m,  x,  y, data->g_img);
+            	color( m,  x,  y, data);
 			else
-				mlx_put_pixel(data->g_img, x, y, 0x000000FF);
+				mlx_pixel_put(data->mlx, data->mlx_win, x, y, 0xFF000000);
 			x++	;
 		}
 		y++;
 	}
+	return (0);
 }
 
 void draw_mb()
 {
 	t_data	data;
-	mlx_t *mlx;
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
-	if (!mlx )
+	t_img	img;
+
+	data.mlx = mlx_init();
+	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "MLX42");
+	if (!data.mlx )
 		exit(EXIT_FAILURE);
 	
-	data.mlx = &mlx;
-	data.g_img  = mlx_new_image(mlx, WIDTH, HEIGHT);  
-	mlx_image_to_window(mlx, data.g_img, 0, 0);
+	data.img.img  = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
+
 	boundaries_mandelbrot(&data);
-    iter_mb(&data);
-	
-	
-	mlx_scroll_hook(mlx, &my_scroll, &data);
-    mlx_loop_hook(mlx, &my_hook, mlx);
-    mlx_loop(mlx);
-	mlx_delete_image(mlx, data.g_img); 
-	mlx_terminate(mlx);
+	iter_mb(&data);
+	// mlx_hook(data.win_ptr, 17, 0, &destroy_exit, &data);
+	// mlx_loop_hook(data.mlx_ptr, &render, &data);
+	// mlx_mouse_hook(data.win_ptr, &handle_mouse, &data);
+	//mlx_loop_hook(data.mlx, iter_mb, &data);
+	mlx_key_hook(data.mlx_win, &my_hook, &data);
+	mlx_mouse_hook(data.mlx_win, &mouse_hook, &data);
+
+	//mlx_scroll_hook(mlx, &my_scroll, &data);
     
+    mlx_loop(data.mlx);
+	mlx_destroy_window(data.mlx, data.mlx_win);
+
 }

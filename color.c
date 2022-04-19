@@ -10,12 +10,12 @@ typedef struct s_color {
 
 int32_t createRGB(int r, int g, int b, int a)
 {   
-    return (*(int32_t  *)(unsigned char [4]){a, b, g, r});
+	return (a << 24 | r << 16 | g << 8 | b);
 }
-void color(double m, int x, int y, mlx_image_t *img)
+void color(double m, int x, int y, t_data *data)
 {
 
-    int32_t color = createRGB(50 + 5*m , 20 + 10*m  , 100 , 255); // r g b a
+    int32_t color = createRGB(50 + 5*m , 20 + 10*m  , 100 , 20); // r g b a
    
-    mlx_put_pixel(img, x, y, color);
+    mlx_pixel_put(data->mlx, data->mlx_win, x, y, color);
 }

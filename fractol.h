@@ -11,11 +11,21 @@
 
 # include "libft/libft.h"
 # include <math.h>
-# include "MLX42/include/MLX42/MLX42.h"
+# include "mlx/mlx.h"
 
-# define WIDTH 2400
-# define HEIGHT 1400
+# define WIDTH 1280
+# define HEIGHT 720
 # define MAX_ITERS 50
+
+typedef struct 		s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}					t_img;
+
 
 typedef struct		s_complex
 {
@@ -34,15 +44,19 @@ typedef struct		s_data
 	double			i_min;
 	int32_t			mx; //mouse position
 	int32_t			my;
-	mlx_image_t		*g_img;
-	mlx_t			*mlx;
+	t_img			img;
+	void			*mlx;
+	void			*mlx_win;
+	void			*img_addr;
 }					t_data;
 
-void    print_help(void);
+
+
+//void    print_help(void);
 void    boundaries_mandelbrot(t_data *data);
 void draw_mb();
 //double  calculate(t_complex in, t_data *data);
-void color(double m, int x, int y, mlx_image_t *img);
+void color(double m, int x, int y, t_data *data);
 int32_t createRGB(int r, int g, int b, int a);
 char	*ft_toupperhex(unsigned long n);
 #endif
