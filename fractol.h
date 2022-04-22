@@ -13,8 +13,8 @@
 # include <math.h>
 # include "mlx/mlx.h"
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH (1280*2)
+# define HEIGHT (720*2)
 # define MAX_ITERS 50
 
 typedef struct 		s_img
@@ -57,6 +57,6 @@ void    boundaries_mandelbrot(t_data *data);
 void draw_mb();
 //double  calculate(t_complex in, t_data *data);
 void color(double m, int x, int y, t_data *data);
-int32_t createRGB(int r, int g, int b, int a);
+int createRGB(int r, int g, int b, int a);
 char	*ft_toupperhex(unsigned long n);
 #endif

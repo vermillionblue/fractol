@@ -1,9 +1,6 @@
 #include "fractol.h"
 #include <stdio.h>
 
-
-int iter_mb(t_data *data);
-
 int my_hook(int keysym, t_data *data)
 {
 	if (keysym == 53)
@@ -20,12 +17,8 @@ double lerp(double start, double end, double step)
 
 void scr2obj(t_data *data)
 {
-	double m_re;
-	double	m_im;
-	m_re = (double)(data->r_min + (double)data->mx / (double)WIDTH * (data->r_max - data->r_min));
-	m_im =(double) (data->i_min + (double)data->my / ((double)HEIGHT)*((data->i_max - data->i_min)));
-	data->mx = m_re;
-	data->my = m_im;
+	data->mx = (double)(data->r_min + (double)data->mx / (double)WIDTH * (data->r_max - data->r_min));
+	data->my =(double) (data->i_min + (double)data->my / ((double)HEIGHT)*((data->i_max - data->i_min)));
 }
 
 void    zoom(t_data *data, int x, int y, int direction)
@@ -59,7 +52,7 @@ int mouse_hook(int keynum, int x, int y, void *data)
 		zoom(data, x, y, 1);
 	if(keynum == 4)
 		zoom(data, x, y,0);
-	iter_mb(data);
+	
 	return (0);
 }
 
@@ -109,8 +102,8 @@ double  calculate(t_complex in, t_data *data)
     }
     if (i == MAX_ITERS)
         return (i);
-	return ( i  + 1 - log(log((magnitute(z))))/log(2)); //swirl mode
-    //return ( i  + 1 - log(log((magnitute(z))))/log(2));
+	return ( i  + 1 - log(log((magnitute(z))))/log(2)); 
+    //return ( i + 1 - logl(log(log(magnitute(z))))); //swirl mode
 }
 
 int iter_mb(t_data *data)
@@ -156,17 +149,15 @@ void draw_mb()
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 
 	boundaries_mandelbrot(&data);
-	iter_mb(&data);
+	
 	// mlx_hook(data.win_ptr, 17, 0, &destroy_exit, &data);
-	// mlx_loop_hook(data.mlx_ptr, &render, &data);
+	mlx_loop_hook(data.mlx, iter_mb, &data);
 	// mlx_mouse_hook(data.win_ptr, &handle_mouse, &data);
 	//mlx_loop_hook(data.mlx, iter_mb, &data);
+
 	mlx_key_hook(data.mlx_win, &my_hook, &data);
 	mlx_mouse_hook(data.mlx_win, &mouse_hook, &data);
 
-	//mlx_scroll_hook(mlx, &my_scroll, &data);
-    
     mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.mlx_win);
-
 }
