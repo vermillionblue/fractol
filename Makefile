@@ -6,13 +6,13 @@
 #    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 11:29:43 by danisanc          #+#    #+#              #
-#    Updated: 2022/04/22 22:45:17 by danisanc         ###   ########.fr        #
+#    Updated: 2022/04/25 10:38:05 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-SRCS =  start.c help.c mandelbrot.c color.c
+SRCS =  main.c help.c mandelbrot.c color.c keys.c operations.c render.c fractals.c
 
 CC = gcc
 
@@ -33,7 +33,7 @@ OBJS	= ${SRCS:.c=.o}
 
 $(NAME): $(OBJS)
 #	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11  -lm -lz -o $(NAME)
-	$(CC) $(OBJS) mlx_linux/libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJS) libft/libft.a mlx_linux/libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 
 # $(NAME): $(OBJS)
