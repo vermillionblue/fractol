@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 11:29:43 by danisanc          #+#    #+#              #
-#    Updated: 2022/04/25 10:38:05 by danisanc         ###   ########.fr        #
+#    Updated: 2022/04/25 17:02:31 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,26 +20,18 @@ CFLAGS = -Wextra -Wall -Werror
 
 UNAME_S := $(shell uname -s)
 
-# $(CC) ${SRCS} libmlx42.a libglfw3.a libft/libft.a -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
-
 OBJS	= ${SRCS:.c=.o}
-
-# %.o: %.c
-# 	$(CC)  -Imlx -c $< -o $@
 
 %.o: %.c
 	$(CC) -Imlx_linux -c $< -o $@
 
 
 $(NAME): $(OBJS)
-#	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11  -lm -lz -o $(NAME)
+ifeq ($(UNAME_S), Linux)
 	$(CC) $(OBJS) libft/libft.a mlx_linux/libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-
-
-# $(NAME): $(OBJS)
-# 	$(MAKE) -C MLX42 && $(MAKE) -C libft
-# 	$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
+else
+	$(CC) $(OBJS) -Lmlx -lmlx libft/libft.a -framework OpenGL -framework AppKit -o $(NAME)
+endif
 
 all: $(NAME)
 

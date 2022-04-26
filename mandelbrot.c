@@ -7,6 +7,8 @@ void    boundaries_mandelbrot(t_data *data)
     data->r_min = -2.0;
     data->i_max = 1.0;
     data->i_min = -1.0;
+	data->swirl_mode = 0;
+	data->color = 1;
 }
 
 
@@ -40,10 +42,9 @@ void start_win(t_data data)
 
 
 	boundaries_mandelbrot(&data);
-	mlx_loop_hook(data.mlx, &iter_mandelbrot, &data);
-
-	//mlx_key_hook(data.mlx_win, &my_hook, &data);
-	//mlx_mouse_hook(data.mlx_win, &mouse_hook, &data);
+	iter_mandelbrot(&data);
+	mlx_key_hook(data.mlx_win, &my_hook, &data);
+	mlx_mouse_hook(data.mlx_win, &mouse_hook, &data);
     mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.mlx_win);
 }

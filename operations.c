@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:33:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/25 10:39:09 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/25 17:38:00 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,15 @@ t_complex	mult(t_complex z)
 	temp.re = z.re*z.re - z.im*z.im;
 	temp.im = z.im*z.re + z.re*z.im;
 	return (temp);
+}
+
+t_complex pow_z(t_complex z, int pow)
+{
+	t_complex	out;
+	float	tetha;
+
+	tetha = atan(z.re/z.im);
+	out.re = magnitude(z) * cos(tetha * pow);
+	out.im = magnitude(z) * sin(tetha * pow);
+	return (out);
 }
