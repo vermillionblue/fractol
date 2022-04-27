@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/27 13:35:40 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:26:26 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@
 # define WIDTH (1280)
 # define HEIGHT (720)
 # define MAX_ITERS 50
+
+typedef struct s_rgb
+{
+	unsigned char R;
+	unsigned char G;
+	unsigned char B;
+}				t_rgb;
+
+typedef struct s_hsv
+{
+	double H;
+	double S;
+	double V;
+}				t_hsv;
 
 typedef struct 		s_img
 {
@@ -46,6 +60,9 @@ typedef struct		s_data
 	double			r_min;
 	double			i_max;
 	double			i_min;
+	double			const_im;
+	double			const_re;
+	int				julia;
 	int				hue;
 	int				sat;
 	int				val;
@@ -77,12 +94,16 @@ int mouse_hook(int keynum, int x, int y, void *data);
 void    print_help();
 void    boundaries_mandelbrot(t_data *data);
 void start_win(t_data data);
-//double  calculate(t_complex in, t_data *data);
+
+
 void color(double m, int x, int y, t_data *data);
 int createRGB(int r, int g, int b, int a);
 int my_hook(int keysym, t_data *data);
-int iter_mandelbrot(t_data *data);
 
+
+int iter_fractal(t_data *data);
+void	boundaries_julia(t_data *data);
 t_complex pow_z(t_complex z, int pow);
+void	my_put_pixel(t_img *img, int x, int y, int color);
 
 #endif

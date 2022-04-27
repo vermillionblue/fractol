@@ -1,20 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:28:04 by danisanc          #+#    #+#             */
+/*   Updated: 2022/04/27 22:17:13 by danisanc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
-#include <stdio.h>
-
-
-typedef struct s_rgb
-{
-	unsigned char R;
-	unsigned char G;
-	unsigned char B;
-}				t_rgb;
-
-typedef struct s_hsv
-{
-	double H;
-	double S;
-	double V;
-}				t_hsv;
 
 t_rgb hsv2rgb(t_hsv hsv) {
 	double r = 0, g = 0, b = 0;
@@ -98,16 +94,16 @@ void color(double m, int x, int y, t_data *data)
 	t_hsv hsv;
 	t_rgb rgb;
 	int	color;
-	hsv.H = (1*data->hue) * m;
+	hsv.H = (data->hue + 7) * m;
 	hsv.S = 1 - 0.1*(data->sat);
 	hsv.V = 1 - 0.1*(data->val);
 	rgb = hsv2rgb(hsv);
 
 	if (data->favorite)
-		color = createRGB(200 , 20 + 15*m  , 20 + 15*m , 0); // fav
+		color = createRGB(200  , 20 + 15*m  , 20 + 15*m , 10); // fav
 	else if (data->rgb)
-		color = createRGB(20 + data->red*m, 20 + data->green*m , 20 + data->blue*m, 0);
+		color = createRGB(20 + data->red*m*2, 20 + data->green*m*2 , 20 + data->blue*m*2, 0);
 	else
-    	color = createRGB(rgb.R , rgb.G  , rgb.B , 1); // r g b a
-    mlx_pixel_put(data->mlx, data->mlx_win, x, y, color);
+    	color = createRGB(rgb.R  , rgb.G , rgb.B , 1); // r g b a
+    my_put_pixel(&data->img, x, y, color);
 }

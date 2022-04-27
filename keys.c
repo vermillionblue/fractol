@@ -3,57 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/27 13:38:55 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:39:08 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-int my_hook(int keysym, t_data *data)
+void mode_hook(int keysym, t_data *data)
 {
-	printf("%d\n", keysym);
-	if (keysym == 53 | keysym == 65307)
-	{
-		mlx_destroy_window(data->mlx, data->mlx_win);
-		exit(0);
-	}
-	if (!data->rgb)
-	{
-		if (keysym == 6 || keysym == 104)
-			data->hue = data->hue + 1;
-		if (keysym == 1 | keysym == 115)
-			data->sat = data->sat + 1;
-		if (keysym == 9 | keysym == 118)
-			data->val = data->val + 1;
-	}
-	if (data->rgb)
-	{
-		if (keysym == 114 || keysym == 114)
-			data->red = data->red + 1;
-		if (keysym == 103 | keysym == 103)
-			data->green = data->green + 1;
-		if (keysym == 98 | keysym == 98)
-			data->blue = data->blue + 1;
-	}
-	if (keysym == 108 | keysym == 108) //l
-	{
-		if (data->swirl_mode)
-			data->swirl_mode = 0;
-		else
-			data->swirl_mode = 1;
-	}
-	if (keysym == 109 | keysym == 109) //m
+	if (keysym == 46 | keysym == 109) //m
 	{
 		if (data->rgb)
 			data->rgb = 0;
 		else
 			data->rgb = 1;
 	}
-	if (keysym == 102 | keysym == 102) //fav
+	if (keysym == 3 | keysym == 102) //fav
 	{
 		if (data->favorite)
 		{
@@ -66,7 +35,48 @@ int my_hook(int keysym, t_data *data)
 			data->favorite = 1;
 		}	
 	}
-	iter_mandelbrot(data);
+}
+
+void color_hook(int keysym, t_data *data)
+{
+	
+	if (data->rgb)
+	{
+		if (keysym == 15 || keysym == 114)
+			data->red = data->red + 1;
+		if (keysym == 5 | keysym == 103)
+			data->green = data->green + 1;
+		if (keysym == 11 | keysym == 98)
+			data->blue = data->blue + 1;
+	}
+	else
+	{
+		if (keysym == 4 || keysym == 104)
+			data->hue = data->hue + 1;
+		if (keysym == 1 | keysym == 115)
+			data->sat = data->sat + 1;
+		if (keysym == 9 | keysym == 118)
+			data->val = data->val + 1;
+	}
+}
+
+int my_hook(int keysym, t_data *data)
+{
+	//printf("%d\n", keysym);
+	if (keysym == 53 | keysym == 65307)
+	{
+		mlx_destroy_window(data->mlx, data->mlx_win);
+		exit(0);
+	}
+	color_hook(keysym, data);
+	mode_hook(keysym, data);
+	if (keysym == 37 | keysym == 108) //l
+	{
+		if (data->swirl_mode)
+			data->swirl_mode = 0;
+		else
+			data->swirl_mode = 1;
+	}
 	return (0);
 }
 
@@ -84,7 +94,7 @@ void scr2obj(t_data *data)
 void    zoom(t_data *data, int x, int y, int direction)
 {
 	double	zoom_v, step;
-	step = 1.02;
+	
 	zoom_v = 1.02;
 	data->mx = x;
 	data->my = y;
@@ -92,26 +102,46 @@ void    zoom(t_data *data, int x, int y, int direction)
 	if (direction)
 	{
 		
-		step *= 0.1;
-		//data->zoom = zoom_v / data->zoom;
+		step = step * 0.5 ;
 	}
 	else
 	{
-		step /=  0.1;
-		//data->zoom = data->zoom / zoom_v;
+		step =  step / 0.5;
 	}
 		data->r_max = lerp(data->mx, data->r_max, step);
     	data->r_min = lerp(data->mx, data->r_min, step);
     	data->i_max = lerp(data->my, data->i_max, step);
    		data->i_min = lerp(data->my, data->i_min, step);
-		iter_mandelbrot(data);
+		//mlx_clear_window(data->mlx, data->mlx_win);
+}
+
+void mandelbrot2julia(t_data *data, int x, int y)
+{
+	if (data->julia)
+	{
+		data->julia = 0;
+		boundaries_mandelbrot(data);
+	}
+	else
+	{
+		data->julia = 1;
+		data->const_im = (double) (data->i_min + y / ((double)HEIGHT)*((data->i_max - data->i_min)));
+		data->const_re = (double)(data->r_min + x / (double)WIDTH * (data->r_max - data->r_min));
+		boundaries_julia(data);
+	}
+	//mlx_clear_window(data->mlx, data->mlx_win);
+	
 }
 
 int mouse_hook(int keynum, int x, int y, void *data)
 {
-	if (keynum == 5)
-		zoom(data, x, y, 1);
-	else if(keynum == 4)
+	t_data *s;
+	s = (t_data *)data;
+	if (keynum == 1 && ft_strncmp(s->title, "Julia", 6)) //change to respective julia set 
+		mandelbrot2julia(data, x, y);
+	else if (keynum == 5)
 		zoom(data, x, y, 0);
+	else if(keynum == 4)
+		zoom(data, x, y, 1);
 	return (0);
 }

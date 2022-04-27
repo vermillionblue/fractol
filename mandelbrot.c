@@ -1,12 +1,25 @@
 #include "fractol.h"
 #include <stdio.h>
 
-void    boundaries_mandelbrot(t_data *data)
+void	boundaries_julia(t_data *data)
 {
-    data->r_max = 1.0 ;
-    data->r_min = -2.0;
+	data->r_max = 1.5 ;
+    data->r_min = -1.5;
     data->i_max = 1.0;
     data->i_min = -1.0;
+}
+
+void    boundaries_mandelbrot(t_data *data)
+{
+	if (!ft_strncmp(data->title, "Julia", 6))
+		boundaries_julia(data);
+	else
+	{
+		data->r_max = 1.0 ;
+		data->r_min = -2.0;
+		data->i_max = 1.0;
+		data->i_min = -1.0;
+	}
 	data->swirl_mode = 0;
 	data->hue = 1;
 	data->sat = 1;
@@ -15,25 +28,8 @@ void    boundaries_mandelbrot(t_data *data)
 	data->green = 1;
 	data->blue = 1;
 	data->favorite = 0;
-}
-
-
-void	init_draw(t_data *data)
-{
-	if (!ft_strncmp(data->title, "Mandelbrot", 11))
-	{
-		boundaries_mandelbrot(data);
-		mlx_loop_hook(data->mlx, iter_mandelbrot, data);
-
-	}
-	else if (!ft_strncmp(data->title, "Julia", 6))
-	{
-		printf("error 1");
-	}
-	else
-	{
-		printf("error 2");
-	}
+	data->julia = 0;
+	data->zoom = 1;
 }
 
 void start_win(t_data data)
@@ -45,7 +41,8 @@ void start_win(t_data data)
 	data.img.img  = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 	boundaries_mandelbrot(&data);
-	iter_mandelbrot(&data);
+	//iter_fractal(&data);
+	mlx_loop_hook(data.mlx, &iter_fractal, &data);
 	mlx_key_hook(data.mlx_win, &my_hook, &data);
 	mlx_mouse_hook(data.mlx_win, &mouse_hook, &data);
     mlx_loop(data.mlx);
