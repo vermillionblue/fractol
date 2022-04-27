@@ -8,7 +8,13 @@ void    boundaries_mandelbrot(t_data *data)
     data->i_max = 1.0;
     data->i_min = -1.0;
 	data->swirl_mode = 0;
-	data->color = 1;
+	data->hue = 1;
+	data->sat = 1;
+	data->val = 1;
+	data->red = 1;
+	data->green = 1;
+	data->blue = 1;
+	data->favorite = 0;
 }
 
 
@@ -38,9 +44,6 @@ void start_win(t_data data)
 		exit(EXIT_FAILURE);
 	data.img.img  = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
-
-
-
 	boundaries_mandelbrot(&data);
 	iter_mandelbrot(&data);
 	mlx_key_hook(data.mlx_win, &my_hook, &data);

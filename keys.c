@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/26 13:57:43 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/27 13:38:55 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,55 @@
 int my_hook(int keysym, t_data *data)
 {
 	printf("%d\n", keysym);
-	if (keysym == 53)
+	if (keysym == 53 | keysym == 65307)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	if (keysym == 6)
+	if (!data->rgb)
 	{
-		data->hue = data->hue + 1;
+		if (keysym == 6 || keysym == 104)
+			data->hue = data->hue + 1;
+		if (keysym == 1 | keysym == 115)
+			data->sat = data->sat + 1;
+		if (keysym == 9 | keysym == 118)
+			data->val = data->val + 1;
 	}
-	if (keysym == 1)
+	if (data->rgb)
 	{
-		data->sat = data->sat + 1;
+		if (keysym == 114 || keysym == 114)
+			data->red = data->red + 1;
+		if (keysym == 103 | keysym == 103)
+			data->green = data->green + 1;
+		if (keysym == 98 | keysym == 98)
+			data->blue = data->blue + 1;
 	}
-	if (keysym == 9)
-	{
-		data->val = data->val + 1;
-	}
-	if (keysym == 46)
+	if (keysym == 108 | keysym == 108) //l
 	{
 		if (data->swirl_mode)
 			data->swirl_mode = 0;
 		else
 			data->swirl_mode = 1;
+	}
+	if (keysym == 109 | keysym == 109) //m
+	{
+		if (data->rgb)
+			data->rgb = 0;
+		else
+			data->rgb = 1;
+	}
+	if (keysym == 102 | keysym == 102) //fav
+	{
+		if (data->favorite)
+		{
+			data->favorite = 0;
+			data->swirl_mode = 0;
+		}	
+		else
+		{
+			data->swirl_mode = 1;
+			data->favorite = 1;
+		}	
 	}
 	iter_mandelbrot(data);
 	return (0);

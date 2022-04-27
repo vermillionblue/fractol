@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/26 13:56:57 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/27 13:35:40 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ typedef struct		s_data
 	int				mx; //mouse position
 	int				my;
 	int				swirl_mode;
+	int				rgb;
+	int				red;
+	int				green;
+	int				blue;
+	int				favorite;
 	t_img			img;
 	void			*mlx;
 	void			*mlx_win;

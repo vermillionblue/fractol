@@ -82,11 +82,9 @@ t_rgb hsv2rgb(t_hsv hsv) {
 		}
 
 	}
-
 	rgb.R = r * 255;
 	rgb.G = g * 255;
 	rgb.B = b * 255;
-
 	return rgb;
 }
 
@@ -99,11 +97,17 @@ void color(double m, int x, int y, t_data *data)
 {
 	t_hsv hsv;
 	t_rgb rgb;
+	int	color;
 	hsv.H = (1*data->hue) * m;
-	hsv.S = 1 ;
-	hsv.V = 1 ;
+	hsv.S = 1 - 0.1*(data->sat);
+	hsv.V = 1 - 0.1*(data->val);
 	rgb = hsv2rgb(hsv);
-    int color = createRGB(rgb.R , rgb.G  , rgb.B , 2);// r g b a
-//    int color = createRGB(200 , 2 + 20*m  , 2 + 20*m , 200); // fav
+
+	if (data->favorite)
+		color = createRGB(200 , 20 + 15*m  , 20 + 15*m , 0); // fav
+	else if (data->rgb)
+		color = createRGB(20 + data->red*m, 20 + data->green*m , 20 + data->blue*m, 0);
+	else
+    	color = createRGB(rgb.R , rgb.G  , rgb.B , 1); // r g b a
     mlx_pixel_put(data->mlx, data->mlx_win, x, y, color);
 }
