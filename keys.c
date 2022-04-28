@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/27 22:39:08 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/28 16:29:05 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void color_hook(int keysym, t_data *data)
 
 int my_hook(int keysym, t_data *data)
 {
-	//printf("%d\n", keysym);
 	if (keysym == 53 | keysym == 65307)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
@@ -102,17 +101,16 @@ void    zoom(t_data *data, int x, int y, int direction)
 	if (direction)
 	{
 		
-		step = step * 0.5 ;
+		step = 1.25 / 1.0 ;
 	}
 	else
 	{
-		step =  step / 0.5;
+		step =  1.0 / 1.25;
 	}
 		data->r_max = lerp(data->mx, data->r_max, step);
     	data->r_min = lerp(data->mx, data->r_min, step);
     	data->i_max = lerp(data->my, data->i_max, step);
    		data->i_min = lerp(data->my, data->i_min, step);
-		//mlx_clear_window(data->mlx, data->mlx_win);
 }
 
 void mandelbrot2julia(t_data *data, int x, int y)
@@ -129,14 +127,13 @@ void mandelbrot2julia(t_data *data, int x, int y)
 		data->const_re = (double)(data->r_min + x / (double)WIDTH * (data->r_max - data->r_min));
 		boundaries_julia(data);
 	}
-	//mlx_clear_window(data->mlx, data->mlx_win);
-	
 }
 
 int mouse_hook(int keynum, int x, int y, void *data)
 {
 	t_data *s;
 	s = (t_data *)data;
+	//mlx_clear_window(s->mlx, s->mlx_win);
 	if (keynum == 1 && ft_strncmp(s->title, "Julia", 6)) //change to respective julia set 
 		mandelbrot2julia(data, x, y);
 	else if (keynum == 5)
