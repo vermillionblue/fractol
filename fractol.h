@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/27 22:26:26 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/29 15:58:29 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <math.h>
 # include "mlx/mlx.h"
 
-# define WIDTH (1280)
-# define HEIGHT (720)
+# define WIDTH (1280*2)
+# define HEIGHT (720*2)
 # define MAX_ITERS 50
 
 typedef struct s_rgb

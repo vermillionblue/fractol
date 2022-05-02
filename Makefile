@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+         #
+#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 11:29:43 by danisanc          #+#    #+#              #
-#    Updated: 2022/04/25 17:02:31 by danisanc         ###   ########.fr        #
+#    Updated: 2022/04/29 15:58:51 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS =  main.c help.c mandelbrot.c color.c keys.c operations.c render.c fractals
 
 CC = gcc
 
+
 CFLAGS = -Wextra -Wall -Werror 
 
 UNAME_S := $(shell uname -s)
@@ -24,7 +25,6 @@ OBJS	= ${SRCS:.c=.o}
 
 %.o: %.c
 	$(CC) -Imlx_linux -c $< -o $@
-
 
 $(NAME): $(OBJS)
 ifeq ($(UNAME_S), Linux)

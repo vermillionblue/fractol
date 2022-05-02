@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractals.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:25:54 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/28 16:20:30 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/04/30 13:08:32 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ double  calculate_julia(t_complex in, t_data *data)
     return (i  + 1 - log((magnitude(in)))/log(2)); 
 }
 
-double  calculate_extra(t_complex in, t_data *data)
+double  calculate_koch(t_complex in, t_data *data)
 {
     t_complex	z;
 	int			i;
