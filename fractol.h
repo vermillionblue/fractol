@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/29 15:58:29 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:28:57 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # define WIDTH (1280*2)
 # define HEIGHT (720*2)
 # define MAX_ITERS 50
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}				point;
 
 typedef struct s_rgb
 {
@@ -74,6 +80,9 @@ typedef struct		s_data
 	int				green;
 	int				blue;
 	int				favorite;
+	int				color_koch;
+	int				koch;
+	int				help;
 	t_img			img;
 	void			*mlx;
 	void			*mlx_win;
@@ -100,7 +109,7 @@ void color(double m, int x, int y, t_data *data);
 int createRGB(int r, int g, int b, int a);
 int my_hook(int keysym, t_data *data);
 
-
+int iter_koch(t_data *data);
 int iter_fractal(t_data *data);
 void	boundaries_julia(t_data *data);
 t_complex pow_z(t_complex z, int pow);

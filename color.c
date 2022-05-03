@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:28:04 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/27 22:17:13 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/03 00:59:08 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void color(double m, int x, int y, t_data *data)
 	t_hsv hsv;
 	t_rgb rgb;
 	int	color;
+
 	hsv.H = (data->hue + 7) * m;
 	hsv.S = 1 - 0.1*(data->sat);
 	hsv.V = 1 - 0.1*(data->val);

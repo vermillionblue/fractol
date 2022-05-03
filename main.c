@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:14 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/27 20:17:14 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/02 20:14:24 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_name(char *name)
 	data.title = name;
 	if (!ft_strncmp(name, "Mandelbrot", 11))
 		start_win(data);
-	else if (!ft_strncmp(name, "Extra", 6))
+	else if (!ft_strncmp(name, "Koch", 5))
 		start_win(data);
 	else
 	{

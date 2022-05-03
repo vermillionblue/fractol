@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/04/28 16:29:05 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:30:08 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,25 @@ void color_hook(int keysym, t_data *data)
 
 int my_hook(int keysym, t_data *data)
 {
+
+	if (keysym == 111 | keysym == 111)
+	{
+		if (data->help)
+			data->help = 0;
+		else
+			data->help = 1;
+	} //options
+	
+	
+	if (keysym == 65451 | keysym == 65451) 
+		data->koch = data->koch + 1;
+			
+	if (keysym == 65453 | keysym == 65453)
+	{
+		if (data->koch >= 0)
+			data->koch = data->koch - 1;
+	} 
+			
 	if (keysym == 53 | keysym == 65307)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
@@ -133,7 +152,6 @@ int mouse_hook(int keynum, int x, int y, void *data)
 {
 	t_data *s;
 	s = (t_data *)data;
-	//mlx_clear_window(s->mlx, s->mlx_win);
 	if (keynum == 1 && ft_strncmp(s->title, "Julia", 6)) //change to respective julia set 
 		mandelbrot2julia(data, x, y);
 	else if (keynum == 5)
