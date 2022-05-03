@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:30:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/03 16:37:45 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/03 20:18:37 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,32 +76,32 @@ void clear_screen(t_data *data)
 }
 
 
-void line(double x1, double y1, double x2, double y2, t_data *data)
+void line(point p1, point p2, t_data *data)
 {
-	double y , x;
-	double temp;
+	double	x;
+	double	y;
+	double	temp;
+
 	y = 0;
 	x = 0;
-
-	if (x1 > x2)
+	if (p1.x > p2.x)
 	{
-		temp = y2;
-		y2 = y1;
-		y1 = temp;
-		temp = x1;
-		x1 = x2;
-		x2 = temp;
+		temp = p2.y;
+		p2.y = p1.y;
+		p1.y = temp;
+		temp = p1.x;
+		p1.x = p2.x;
+		p2.x = temp;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, 0, 0);
-
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{	
 			
-			double line_eq = (y - y1) - ((y2 - y1) / (x2 - x1) * (x - x1));
-			if (abs(line_eq) < 1 && x >= x1 && x <= x2) //&& x > x1 && x < x2
+			double line_eq = (y - p1.y) - ((p2.y - p1.y) / (p2.x - p1.x) * (x - p1.x));
+			if (abs(line_eq) < 1 && x >= p1.x && x <= p2.x) //&& x > x1 && x < x2
 				color(data->color_koch, x, y, data);
 			x++;
 		}
@@ -110,37 +110,36 @@ void line(double x1, double y1, double x2, double y2, t_data *data)
 }
 	
 
-void koch(double x1, double y1, double x2, double y2, double 
-it, t_data *data)
+void koch(point p1, point p2, int i, t_data *data)
 {
 	double angle = 60*pi/180;
+	point	p;
+	point	p3;
+	point	p4;
 
-
-	double x3 = (2*x1+x2)/3;
-	double y3 = (2*y1+y2)/3;
-
-	double x4 = (x1+2*x2)/3;
-	double y4 = (y1+2*y2)/3;
+	p3.x = (2*p1.x+p2.x)/3;
+	p3.y = (2*p1.y+p2.y)/3;
+	p4.x = (p1.x+2*p2.x)/3;
+	p4.y = (p1.y+2*p2.y)/3;
 
 	
+	p.x = p3.x + (p4.x-p3.x)*cos(angle)+(p4.y-p3.y)*sin(angle);
+	p.y = p3.y - (p4.x-p3.x)*sin(angle)+(p4.y-p3.y)*cos(angle);
 
-	double x = x3 + (x4-x3)*cos(angle)+(y4-y3)*sin(angle);
-	double y = y3 - (x4-x3)*sin(angle)+(y4-y3)*cos(angle);
-
-	if(it > 0)
+	if(i > 0)
 	{
-		koch(x1, y1, x3, y3, it-1, data);
-		koch(x3, y3, x, y, it-1, data);
-		koch(x, y, x4, y4, it-1, data);
-		koch(x4, y4, x2, y2, it-1, data);
+		koch(p1, p3, i-1, data);
+		koch(p3, p, i-1, data);
+		koch(p, p4, i-1, data);
+		koch(p4, p2, i-1, data);
 	}
 
 	else
 	{
-		line(x1, y1, x3, y3, data); //first edge
- 		line(x3, y3, x, y , data); //left edge
-  		line(x, y, x4, y4, data); //right edge
-		line(x4, y4 , x2, y2,data); //last edge
+		line(p1, p3, data); //first edge
+ 		line(p3, p , data); //left edge
+  		line(p, p4, data); //right edge
+		line(p4 , p2 ,data); //last edge
 
 	}
 	
@@ -169,7 +168,7 @@ int iter_koch(t_data *data)
 
 	
 	
-
+	
 	float i = 0;
 
 	
@@ -178,20 +177,28 @@ int iter_koch(t_data *data)
 			if (data->koch == -1)
 			{
 				data->color_koch = 26;
-				line(p1.x, p1.y, p2.x, p2.y,  data);
+				line(p1, p2,  data);
 				data->color_koch = 30;
-				line(p1.x, p1.y, p3.x, p3.y, data);
+				line(p1, p3, data);
 				data->color_koch = 34;
-				line(p3.x, p3.y,p2.x, p2.y, data);
+				line(p3, p2, data);
 			}
 			else
 			{
 				data->color_koch = 26;
-				koch( p2.x + i, p2.y + i, p1.x + i , p1.y + i, data->koch , data); //base
+				p2.x += i;
+				p2.y+= i;
+				p1.x += i;
+				p1.y += i;
+				p3.x += i;
+				p3.y += i;
+				koch( p2, p1 , data->koch , data); //base
 				data->color_koch = 30;
-				koch(p1.x + i , p1.y + i, p3.x + i, p3.y + i, data->koch , data);
+				//p1.x += i, p1.y+= i, p3.x += i , p3.y += i;
+				koch(p1, p3, data->koch , data);
 				data->color_koch = 34;
-				koch( p3.x + i, p3.y + i,p2.x + i, p2.y + i, data->koch, data);
+				//p3.x += i, p3.y+= i, p2.x += i , p2.y += i;
+				koch( p3, p2, data->koch, data);
 			}
 			i = i + 5;
 		}
