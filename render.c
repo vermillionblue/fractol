@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:30:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/04 14:31:41 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:52:42 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ int iter_fractal(t_data *data)
 
 void clear_screen(t_data *data)
 {
-	int y , x = 0;
-
+	int	y;
+	int	x;
+	
+	x = 0;
+	y = 0;
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, 0, 0);
 	while (y < HEIGHT)
 	{
