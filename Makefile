@@ -6,13 +6,13 @@
 #    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 11:29:43 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/03 01:20:04 by danisanc         ###   ########.fr        #
+#    Updated: 2022/05/03 22:22:03 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-SRCS =  main.c help.c mandelbrot.c color.c keys.c operations.c render.c fractals.c
+SRCS =  main.c help.c start_win.c color.c keys.c operations.c render.c fractals.c
 
 CC = gcc
 

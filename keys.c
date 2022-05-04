@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/03 14:30:08 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/04 11:15:37 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int my_hook(int keysym, t_data *data)
 		else
 			data->help = 1;
 	} //options
-	
-	
+
 	if (keysym == 65451 | keysym == 65451) 
 		data->koch = data->koch + 1;
 			
@@ -150,7 +149,8 @@ void mandelbrot2julia(t_data *data, int x, int y)
 
 int mouse_hook(int keynum, int x, int y, void *data)
 {
-	t_data *s;
+	t_data	*s;
+
 	s = (t_data *)data;
 	if (keynum == 1 && ft_strncmp(s->title, "Julia", 6)) //change to respective julia set 
 		mandelbrot2julia(data, x, y);
