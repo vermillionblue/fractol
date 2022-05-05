@@ -3,108 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:28:04 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/03 00:59:08 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/05 16:19:14 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_rgb hsv2rgb(t_hsv hsv) {
-	double r = 0, g = 0, b = 0;
-	t_rgb rgb;
-	if (hsv.S == 0)
-	{
-		r = hsv.V;
-		g = hsv.V;
-		b = hsv.V;
-	}
-	else
-	{
-		int i;
-		double f, p, q, t;
-
-		if (hsv.H == 360)
-			hsv.H = 0;
-		else
-			hsv.H = hsv.H / 60;
-
-		i = (int)trunc(hsv.H);
-		f = hsv.H - i;
-
-		p = hsv.V * (1.0 - hsv.S);
-		q = hsv.V * (1.0 - (hsv.S * f));
-		t = hsv.V * (1.0 - (hsv.S * (1.0 - f)));
-
-		switch (i)
-		{
-		case 0:
-			r = hsv.V;
-			g = t;
-			b = p;
-			break;
-
-		case 1:
-			r = q;
-			g = hsv.V;
-			b = p;
-			break;
-
-		case 2:
-			r = p;
-			g = hsv.V;
-			b = t;
-			break;
-
-		case 3:
-			r = p;
-			g = q;
-			b = hsv.V;
-			break;
-
-		case 4:
-			r = t;
-			g = p;
-			b = hsv.V;
-			break;
-
-		default:
-			r = hsv.V;
-			g = p;
-			b = q;
-			break;
-		}
-
-	}
-	rgb.R = r * 255;
-	rgb.G = g * 255;
-	rgb.B = b * 255;
-	return rgb;
-}
-
-
-int createRGB(int r, int g, int b, int a)
-{   
+int	create_rgb(int r, int g, int b, int a)
+{
 	return (a << 24 | r << 16 | g << 8 | b);
 }
-void color(double m, int x, int y, t_data *data)
+
+void	color(double m, int x, int y, t_data *data)
 {
-	t_hsv hsv;
-	t_rgb rgb;
-	int	color;
+	t_hsv	hsv;
+	t_rgb	rgb;
+	int		color;
 
-	hsv.H = (data->hue + 7) * m;
-	hsv.S = 1 - 0.1*(data->sat);
-	hsv.V = 1 - 0.1*(data->val);
+	hsv.h = (data->hue + 7) * m;
+	hsv.s = 1 - 0.1 * (data->sat);
+	hsv.v = 1 - 0.1 * (data->val);
 	rgb = hsv2rgb(hsv);
-
 	if (data->favorite)
-		color = createRGB(200  , 20 + 15*m  , 20 + 15*m , 10); // fav
+		color = create_rgb(200, 20 + 15 * m, 20 + 15 * m, 10);
 	else if (data->rgb)
-		color = createRGB(20 + data->red*m*2, 20 + data->green*m*2 , 20 + data->blue*m*2, 0);
+		color = create_rgb(20 + data->red * m * 2, 20 \
+		+ data->green * m * 2, 20 + data->blue * m * 2, 0);
 	else
-    	color = createRGB(rgb.R  , rgb.G , rgb.B , 1); // r g b a
-    my_put_pixel(&data->img, x, y, color);
+		color = create_rgb(rgb.r, rgb.g, rgb.b, 1);
+	my_put_pixel(&data->img, x, y, color);
 }
