@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 22:36:55 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/05 18:58:09 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:50:47 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,14 @@ void	line(t_point p1, t_point p2, t_data *data)
 		while (x < WIDTH)
 		{	
 			line_eq = (y - p1.y) - ((p2.y - p1.y) / (p2.x - p1.x) * (x - p1.x));
-			if (p2.x == p1.x && y >= p1.y && y <= p2.y)
+			
+			if ((p2.x == p1.x) && (y >= p1.y && y <= p2.y) && (x == p1.x))
 				color(data->color_koch, p2.x, y, data);
+				
+			else if ((p2.x == p1.x) && (y >= p2.y && y <= p1.y) && (x == p1.x))
+				color(data->color_koch, p2.x, y, data);
+				
+			line_eq = (y - p1.y) - ((p2.y - p1.y) / (p2.x - p1.x) * (x - p1.x));
 			if (fabs(line_eq) < 1 && x >= p1.x && x <= p2.x)
 				color(data->color_koch, x, y, data);
 			x++;

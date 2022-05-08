@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:30:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/05 19:10:53 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:51:53 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,40 @@ int	iter_koch(t_data *data)
 	t_point	p1;
 	t_point	p2;
 	t_point	p3;
+	t_point p4;
+
+
+	p2.x = 50.0;
+	p2.y = 10.0;
+
+	p3.x = 50.0;
+	p3.y = 50.0;
+
+	p4.x = floor(10.0);
+	p4.y = floor(50.0);
+
+	p1.x = floor(10.0);
+	p1.y = floor(10.0);
+
 
 	i = 0;
 	clear_screen(data);
-	set_triangle(&p1, &p2, &p3);
-	help_koch(data);
-	while (i < 5)
-	{
-		if (data->koch == -1)
-			generator(p1, p2, p3, data);
-		else
-			start_edges(p1, p2, p3, data);
-		repeat_shape(&p1, &p2, &p3, i);
-		i = i + 0.5;
-	}
+
+	//line(p1, p2, data);
+	line(p2, p3, data);
+	//line(p3, p4, data);
+	line(p1, p4, data);
+	
+	// set_triangle(&p1, &p2, &p3);
+	// help_koch(data);
+	// while (i < 5)
+	// {
+	// 	if (data->koch == -1)
+	// 		generator(p1, p2, p3, data);
+	// 	else
+	// 		start_edges(p1, p2, p3, data);
+	// 	repeat_shape(&p1, &p2, &p3, i);
+	// 	i = i + 0.5;
+	// }
 	return (0);
 }

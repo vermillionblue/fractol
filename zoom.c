@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 21:14:44 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/05 18:49:39 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/06 15:17:49 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ void    zoom(t_data *data, int x, int y, int direction)
 {
 	double	zoom_v, step;
 	
-	zoom_v = 1.02;
+	step = 1.03;
 	data->mx = screen2real(x, data);
 	data->my = screen2imaginary(y, data);
 	if (direction)
 	{
 		
-		step = 1.25 / 1.0;
+		step = 1.25 / 1.03;
 		data->zoom += (data->zoom * 0.1);
 	}
 	else
 	{
-		step =  1.0 / 1.25;
+		step =  1.03 / 1.25;
 		data->zoom -= (data->zoom * 0.1);
 	}
-		data->r_max = lerp(data->mx, data->r_max, step);
-    	data->r_min = lerp(data->mx, data->r_min, step);
-    	data->i_max = lerp(data->my, data->i_max, step);
-   		data->i_min = lerp(data->my, data->i_min, step);
+	data->r_max = lerp(data->mx, data->r_max, step);
+    data->r_min = lerp(data->mx, data->r_min, step);
+    data->i_max = lerp(data->my, data->i_max, step);
+   	data->i_min = lerp(data->my, data->i_min, step);
 }

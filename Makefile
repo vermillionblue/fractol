@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 11:29:43 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/03 22:22:03 by danisanc         ###   ########.fr        #
+#    Updated: 2022/05/08 19:17:07 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-SRCS =  main.c help.c start_win.c color.c keys.c operations.c render.c fractals.c
+SRCS =  main.c help.c start_win.c color.c keys.c operations.c render.c fractals.c \
+		zoom.c draw.c koch.c more_keys.c hsv.c zoom_koch.c
 
 CC = gcc
 
