@@ -6,12 +6,11 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/06 14:16:03 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/08 22:51:19 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 void	destroy_n_exit(t_data *data)
 {
@@ -73,9 +72,19 @@ int	mouse_hook(int keynum, int x, int y, void *data)
 	s = (t_data *)data;
 	if (keynum == 1 && ft_strncmp (s->title, "Julia", 6))
 		mandelbrot2julia (data, x, y);
-	else if (keynum == 5)
-		zoom (data, x, y, 0);
-	else if (keynum == 4)
-		zoom (data, x, y, 1);
+    if (!ft_strncmp (s->title, "Koch", 5))
+    {
+		if (keynum == 5)
+            zoom_koch(data, x, y, 0);
+        else if (keynum == 4)
+            zoom_koch(data, x, y, 1);
+    }
+    else
+    {
+        if (keynum == 5)
+            zoom(data, x, y, 0);
+        else if (keynum == 4)
+            zoom(data, x, y, 1);
+    }
 	return (0);
 }

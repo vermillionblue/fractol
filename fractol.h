@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/05 18:50:43 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/08 22:34:18 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ typedef struct s_img
 	int		endian;
 }					t_img;
 
+typedef struct s_triangle
+{
+    t_point p1;
+    t_point p2;
+    t_point p3;
+}               t_triangle;     
+
 typedef struct s_complex
 {
 	double			re;
@@ -105,6 +112,7 @@ typedef struct s_data
 	void			*mlx;
 	void			*mlx_win;
 	void			*img_addr;
+    t_triangle      triangle;
 }					t_data;
 //operations
 double		magnitude(t_complex z);
@@ -134,7 +142,7 @@ void		line(t_point p1, t_point p2, t_data *data);
 void		zoom(t_data *data, int x, int y, int direction);
 void		calculate_edges(t_edge *points);
 void		koch(t_point p1, t_point p2, int i, t_data *data);
-void		set_triangle(t_point *p1, t_point *p2, t_point *p3);
+void		set_triangle(t_point *p1, t_point *p2, t_point *p3, t_data *data);
 void		generator(t_point p1, t_point p2, t_point p3, t_data *data);
 void		start_edges(t_point p1, t_point p2, t_point p3, t_data *data);
 void		help_koch(t_data *data);
@@ -145,4 +153,7 @@ void		options_prompt(t_data *data);
 double		screen2imaginary(double num, t_data *data);
 double		screen2real(double num, t_data *data);
 void		options_box(double x, double y, t_data *data);
+void		zoom_koch(t_data *data, int x, int y, int direction);
+t_point		transform_point(double transform[4][4], t_point p);
+t_point		scale_point(t_point p1, double scale_factor);
 #endif

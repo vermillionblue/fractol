@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 22:36:30 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/05 16:34:12 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/08 22:55:37 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,16 @@ void	koch(t_point p1, t_point p2, int i, t_data *data)
 	}
 }
 
-void	set_triangle(t_point *p1, t_point *p2, t_point *p3)
+void	set_triangle(t_point *p1, t_point *p2, t_point *p3, t_data *data)
 {
-	double	angle;
-
-	angle = 60 * M_PI / 180;
-	p1->x = (WIDTH / 4) + 150;
-	p1->y = (HEIGHT * 3 / 4) - 80;
-	p2->x = (WIDTH * 3 / 4) - 150;
-	p2->y = (HEIGHT * 3 / 4) - 80;
-	p3->x = p1->x + (p2->x - p1->x) * cos(angle) + (p2->y - p1->y) * sin(angle);
-	p3->y = p1->y - (p2->x - p1->x) * sin(angle) + (p2->y - p1->y) * cos(angle);
+	p1->x = data->triangle.p1.x;
+	p1->y = data->triangle.p1.y;
+	
+	p2->x = data->triangle.p2.x;
+	p2->y = data->triangle.p2.y;
+	
+	p3->x = fabs(floor(data->triangle.p3.x));
+	p3->y = fabs(floor(data->triangle.p3.y));
 }
 
 void	generator(t_point p1, t_point p2, t_point p3, t_data *data)

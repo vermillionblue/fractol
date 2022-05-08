@@ -38,7 +38,6 @@ void    zoom(t_data *data, int x, int y, int direction)
 	data->my = screen2imaginary(y, data);
 	if (direction)
 	{
-		
 		step = 1.25 / 1.03;
 		data->zoom += (data->zoom * 0.1);
 	}
