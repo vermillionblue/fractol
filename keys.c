@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/08 22:51:19 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 00:09:31 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ int	my_hook(int keysym, t_data *data)
 	color_hook(keysym, data);
 	mode_hook(keysym, data);
 	arrow_keys(keysym, data);
-	if (keysym == 31 | keysym == 111)
+	if (keysym == 31 || keysym == 111)
 		switch_value(&data->help);
-	if (keysym == 30 | keysym == 65451)
+	if (keysym == 30 || keysym == 65451)
 		data->koch = data->koch + 1;
-	if (keysym == 44 | keysym == 65453)
+	if (keysym == 44 || keysym == 65453)
 	{
 		if (data->koch >= 0)
 			data->koch = data->koch - 1;
 	}
-	if (keysym == 53 | keysym == 65307)
+	if (keysym == 53 || keysym == 65307)
 		destroy_n_exit(data);
-	if (keysym == 37 | keysym == 108)
+	if (keysym == 37 || keysym == 108)
 		switch_value(&data->swirl_mode);
 	return (0);
 }

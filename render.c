@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:30:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/08 22:58:10 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 00:21:28 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	iter_koch(t_data *data)
 
 
 	i = 0;
-	clear_screen(data);
+	//clear_screen(data);
 
 	set_triangle(&p1, &p2, &p3, data);
 	printf("%f 1x and %f 1y\n", p1.x, p1.y);
@@ -85,19 +85,19 @@ int	iter_koch(t_data *data)
 	printf("%f 3x and  %f 3y\n", p3.x, p3.y);
 	printf("\n");
 	
-	// line(p2, p1, data); //base
-	// line(p3, p2, data);
-	// line(p1, p3, data);
+	line(p2, p1, data); //base
+	line(p3, p2, data);
+	line(p1, p3, data);
 	
-	help_koch(data);
-	while (i < 5)
-	{
-		if (data->koch == -1)
-			generator(p1, p2, p3, data);
-		else
-			start_edges(p1, p2, p3, data);
-		repeat_shape(&p1, &p2, &p3, i);
-		i = i + 0.5;
-	}
+	// help_koch(data);
+	// while (i < 5)
+	// {
+	// 	if (data->koch == -1)
+	// 		generator(p1, p2, p3, data);
+	// 	else
+	// 		start_edges(p1, p2, p3, data);
+	// 	repeat_shape(&p1, &p2, &p3, i);
+	// 	i = i + 0.5;
+	// }
 	return (0);
 }

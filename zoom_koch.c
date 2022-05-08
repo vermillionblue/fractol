@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 19:18:18 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/08 23:59:25 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 00:18:46 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void    zoom_koch(t_data *data, int x, int y, int direction)
     tf_mouse2img[0][0] = 1;
     tf_mouse2img[0][1] = 0;
     tf_mouse2img[0][2] = 0;
-    tf_mouse2img[0][3] = data->mx;
+    tf_mouse2img[0][3] = x;
     
     tf_mouse2img[0][0] = 0;
     tf_mouse2img[0][1] = 1;
     tf_mouse2img[0][2] = 0;
-    tf_mouse2img[0][3] = data->my;
+    tf_mouse2img[0][3] = y;
     
     tf_mouse2img[0][0] = 0;
     tf_mouse2img[0][1] = 0;

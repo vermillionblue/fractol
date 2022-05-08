@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 21:14:44 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/06 15:17:49 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 00:13:32 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ double screen2imaginary(double num, t_data *data)
 
 void    zoom(t_data *data, int x, int y, int direction)
 {
-	double	zoom_v, step;
+	double	 step;
 	
 	step = 1.03;
 	data->mx = screen2real(x, data);
