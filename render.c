@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:30:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/09 00:21:28 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 00:42:23 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,13 @@ void	repeat_shape(t_point *p1, t_point *p2, t_point *p3, int i)
 
 int	iter_koch(t_data *data)
 {
-	float	i;
 	t_point	p1;
 	t_point	p2;
 	t_point	p3;
 
 
-	i = 0;
-	//clear_screen(data);
+
+	clear_screen(data);
 
 	set_triangle(&p1, &p2, &p3, data);
 	printf("%f 1x and %f 1y\n", p1.x, p1.y);
