@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:55:42 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/09 00:09:31 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:58:15 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	my_hook(int keysym, t_data *data)
 {
 	color_hook(keysym, data);
 	mode_hook(keysym, data);
-	arrow_keys(keysym, data);
+	if (!ft_strncmp (data->title, "Koch", 5))
+		arrows_koch(keysym, data);
+	else
+		arrows_complex(keysym, data);
 	if (keysym == 31 || keysym == 111)
 		switch_value(&data->help);
 	if (keysym == 30 || keysym == 65451)
@@ -67,24 +70,25 @@ void	mandelbrot2julia(t_data *data, int x, int y)
 
 int	mouse_hook(int keynum, int x, int y, void *data)
 {
-	t_data	*s;
+	t_data	*data_;
 
-	s = (t_data *)data;
-	if (keynum == 1 && ft_strncmp (s->title, "Julia", 6))
+	data_ = (t_data *)data;
+	if (keynum == 1 && ft_strncmp (data_->title, "Julia", 6))
 		mandelbrot2julia (data, x, y);
-    if (!ft_strncmp (s->title, "Koch", 5))
-    {
+	if (!ft_strncmp (data_->title, "Koch", 5))
+	{
+		if (keynum == 5 && data_->triangle.p3.y >= 23.0
+			&& data_->triangle.p1.x >= 23.0)
+			zoom_koch(data, x, y, 0);
+		else if (keynum == 4)
+			zoom_koch(data, x, y, 1);
+	}
+	else
+	{
 		if (keynum == 5)
-            zoom_koch(data, x, y, 0);
-        else if (keynum == 4)
-            zoom_koch(data, x, y, 1);
-    }
-    else
-    {
-        if (keynum == 5)
-            zoom(data, x, y, 0);
-        else if (keynum == 4)
-            zoom(data, x, y, 1);
-    }
+			zoom(data, x, y, 0);
+		else if (keynum == 4)
+			zoom(data, x, y, 1);
+	}
 	return (0);
 }

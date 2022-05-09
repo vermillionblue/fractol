@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/08 22:34:18 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:52:35 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ typedef struct s_img
 
 typedef struct s_triangle
 {
-    t_point p1;
-    t_point p2;
-    t_point p3;
-}               t_triangle;     
+	t_point	p1;
+	t_point	p2;
+	t_point	p3;
+}				t_triangle;
 
 typedef struct s_complex
 {
@@ -112,7 +112,7 @@ typedef struct s_data
 	void			*mlx;
 	void			*mlx_win;
 	void			*img_addr;
-    t_triangle      triangle;
+	t_triangle		triangle;
 }					t_data;
 //operations
 double		magnitude(t_complex z);
@@ -148,7 +148,6 @@ void		start_edges(t_point p1, t_point p2, t_point p3, t_data *data);
 void		help_koch(t_data *data);
 void		switch_value(int *n);
 t_rgb		hsv2rgb(t_hsv hsv);
-void		arrow_keys(int key, t_data *data);
 void		options_prompt(t_data *data);
 double		screen2imaginary(double num, t_data *data);
 double		screen2real(double num, t_data *data);
@@ -156,4 +155,8 @@ void		options_box(double x, double y, t_data *data);
 void		zoom_koch(t_data *data, int x, int y, int direction);
 t_point		transform_point(double transform[4][4], t_point p);
 t_point		scale_point(t_point p1, double scale_factor);
+void		arrows_koch(int key, t_data *data);
+void		arrows_complex(int key, t_data *data);
+void		init_triangle(t_data *data);
+void		calculate_p3(t_data *data);
 #endif

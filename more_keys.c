@@ -6,13 +6,13 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 22:09:03 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/05 16:35:35 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:59:18 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	arrow_keys(int key, t_data *data)
+void	arrows_complex(int key, t_data *data)
 {
 	if (key == 126)
 	{	
@@ -34,6 +34,47 @@ void	arrow_keys(int key, t_data *data)
 		data->r_max = data->r_max + (data->zoom * 0.1);
 		data->r_min = data->r_min + (data->zoom * 0.1);
 	}
+}
+
+void	calculate_p3(t_data *data)
+{
+	double	angle;
+
+	angle = 60 * M_PI / 180;
+	data->triangle.p3.x = data->triangle.p1.x + (data->triangle.p2.x \
+	- data->triangle.p1.x) * cos(angle) + (data->triangle.p2.y \
+	- data->triangle.p1.y) * sin(angle);
+	data->triangle.p3.y = data->triangle.p1.y - (data->triangle.p2.x \
+	- data->triangle.p1.x) * sin(angle) + (data->triangle.p2.y - \
+	data->triangle.p1.y) * cos(angle);
+}
+
+void	arrows_koch(int key, t_data *data)
+{
+	double	angle;
+
+	angle = 60 * M_PI / 180;
+	if (key == 126)
+	{	
+		data->triangle.p1.y -= 30;
+		data->triangle.p2.y -= 30;
+	}
+	if (key == 125)
+	{
+		data->triangle.p1.y += 30;
+		data->triangle.p2.y += 30;
+	}
+	if (key == 123)
+	{
+		data->triangle.p1.x -= 30;
+		data->triangle.p2.x -= 30;
+	}
+	if (key == 124)
+	{
+		data->triangle.p1.x += 30;
+		data->triangle.p2.x += 30;
+	}
+	calculate_p3(data);
 }
 
 void	mode_hook(int keysym, t_data *data)

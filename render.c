@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:30:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/09 00:42:23 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:37:51 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ double	current_magnitude(t_data *data, t_complex in)
 void	black_or_other(double x, double y, t_data *data, t_complex in)
 {
 	if (current_magnitude(data, in) == MAX_ITERS)
-				my_put_pixel(&data->img, x, y, 0x00000000);
+		my_put_pixel(&data->img, x, y, 0x00000000);
 	else
-		color(current_magnitude(data, in),  x,  y, data);
+		color(current_magnitude(data, in), x, y, data);
 }
 
 int	iter_fractal(t_data *data)
@@ -66,37 +66,26 @@ void	repeat_shape(t_point *p1, t_point *p2, t_point *p3, int i)
 	p3->y += i;
 }
 
-#include <stdio.h>
-
 int	iter_koch(t_data *data)
 {
+	double	i;
 	t_point	p1;
 	t_point	p2;
 	t_point	p3;
 
-
-
+	i = 0;
 	clear_screen(data);
-
 	set_triangle(&p1, &p2, &p3, data);
-	printf("%f 1x and %f 1y\n", p1.x, p1.y);
-	printf("%f 2x and  %f 2y\n", p2.x, p2.y);
-	printf("%f 3x and  %f 3y\n", p3.x, p3.y);
-	printf("\n");
-	
-	line(p2, p1, data); //base
-	line(p3, p2, data);
-	line(p1, p3, data);
-	
-	// help_koch(data);
-	// while (i < 5)
-	// {
-	// 	if (data->koch == -1)
-	// 		generator(p1, p2, p3, data);
-	// 	else
-	// 		start_edges(p1, p2, p3, data);
-	// 	repeat_shape(&p1, &p2, &p3, i);
-	// 	i = i + 0.5;
-	// }
+	help_koch(data);
+	while (i < 5)
+	{
+		if (data->koch == -1)
+			generator(p1, p2, p3, data);
+		else
+			start_edges(p1, p2, p3, data);
+		if (data->koch <= 2)
+			repeat_shape(&p1, &p2, &p3, i);
+		i = i + 0.5;
+	}
 	return (0);
 }

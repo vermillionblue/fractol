@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 22:36:30 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/09 00:52:12 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:13:53 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ void	set_triangle(t_point *p1, t_point *p2, t_point *p3, t_data *data)
 {
 	p1->x = fabs(data->triangle.p1.x);
 	p1->y = fabs(data->triangle.p1.y);
-	
 	p2->x = fabs(data->triangle.p2.x);
 	p2->y = fabs(data->triangle.p2.y);
-	
-	p3->x = fabs(floor(data->triangle.p3.x));
-	p3->y = fabs(floor(data->triangle.p3.y));
+	p3->x = fabs(data->triangle.p3.x);
+	p3->y = fabs(data->triangle.p3.y);
 }
 
 void	generator(t_point p1, t_point p2, t_point p3, t_data *data)

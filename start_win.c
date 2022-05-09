@@ -6,33 +6,18 @@
 /*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 22:19:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/08 22:27:32 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:59:42 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void init_triangle(t_data *data)
-{
-    double  angle;
-    
-    angle = 60 * M_PI / 180;
-    data->triangle.p1.x = (WIDTH / 4) + 150;
-    data->triangle.p1.y = (HEIGHT * 3 / 4) - 80;
-    
-    data->triangle.p2.x = (WIDTH * 3 / 4) - 150;
-    data->triangle.p2.y = (HEIGHT * 3 / 4) - 80;
-    
-    data->triangle.p3.x = data->triangle.p1.x + (data->triangle.p2.x - data->triangle.p1.x) * cos(angle) + (data->triangle.p2.y - data->triangle.p1.y) * sin(angle);
-    data->triangle.p3.y = data->triangle.p1.y - (data->triangle.p2.x - data->triangle.p1.x) * sin(angle) + (data->triangle.p2.y - data->triangle.p1.y) * cos(angle);
-}
 
 void	data_koch(t_data *data)
 {
 	data->color_koch = 0;
 	data->koch = -1;
 	data->i_max = 0;
-    init_triangle(data);
+	init_triangle(data);
 }
 
 void	boundaries_julia(t_data *data)
