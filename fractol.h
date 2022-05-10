@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/04 11:18:51 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:52:34 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "libft/libft.h"
 # include <math.h>
 # include "mlx/mlx.h"
-# define WIDTH (1280)
-# define HEIGHT (720)
+# define WIDTH (1280*2)
+# define HEIGHT (720*2)
 # define MAX_ITERS 50
 
 typedef struct s_point
