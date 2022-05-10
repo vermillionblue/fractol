@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_win.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 22:19:28 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/03 22:19:36 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:59:42 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ void	data_koch(t_data *data)
 	data->color_koch = 0;
 	data->koch = -1;
 	data->i_max = 0;
+	init_triangle(data);
 }
 
 void	boundaries_julia(t_data *data)
 {
 	data->r_max = 1.5 ;
-    data->r_min = -1.5;
-    data->i_max = 1.0;
-    data->i_min = -1.0;
+	data->r_min = -1.5;
+	data->i_max = 1.0;
+	data->i_min = -1.0;
 }
 
-void default_data(t_data *data)
+void	default_data(t_data *data)
 {
 	data->swirl_mode = 0;
 	data->hue = 1;
@@ -40,9 +41,11 @@ void default_data(t_data *data)
 	data->julia = 0;
 	data->zoom = 1;
 	data->help = 0;
+	data->rgb = 0;
+	data->zoom = 1;
 }
 
-void    boundaries_mandelbrot(t_data *data)
+void	boundaries_mandelbrot(t_data *data)
 {
 	if (!ft_strncmp(data->title, "Julia", 6))
 		boundaries_julia(data);
@@ -58,15 +61,15 @@ void    boundaries_mandelbrot(t_data *data)
 	default_data(data);
 }
 
-void start_win(t_data data)
+void	start_win(t_data data)
 {
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, data.title);
-	if (!data.mlx )
+	if (!data.mlx)
 		exit(EXIT_FAILURE);
-	data.img.img  = mlx_new_image(data.mlx, WIDTH, HEIGHT);
-	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
-
+	data.img.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, \
+	&data.img.line_length, &data.img.endian);
 	boundaries_mandelbrot(&data);
 	if (!ft_strncmp(data.title, "Koch", 5))
 		mlx_loop_hook(data.mlx, &iter_koch, &data);
@@ -74,6 +77,6 @@ void start_win(t_data data)
 		mlx_loop_hook(data.mlx, &iter_fractal, &data);
 	mlx_key_hook(data.mlx_win, &my_hook, &data);
 	mlx_mouse_hook(data.mlx_win, &mouse_hook, &data);
-    mlx_loop(data.mlx);
+	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.mlx_win);
 }
