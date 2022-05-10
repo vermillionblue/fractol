@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:30:26 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/10 23:04:12 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/10 23:05:29 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # define HEIGHT (720*2)
 # define MAX_ITERS 50
 # define _USE_MATH_DEFINES
-# define WIDTH (1280)
-# define HEIGHT (720)
-# define MAX_ITERS 80
 
 typedef struct s_point
 {

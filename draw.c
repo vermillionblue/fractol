@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 22:36:55 by danisanc          #+#    #+#             */
-/*   Updated: 2022/05/09 18:55:47 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/10 23:05:52 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ void	line(t_point p1, t_point p2, t_data *data)
 
 void	init_triangle(t_data *data)
 {
-	double	angle;
-
-	angle = 60 * M_PI / 180;
 	data->triangle.p1.x = (WIDTH / 4) + 150;
 	data->triangle.p1.y = (HEIGHT * 3 / 4) - 80;
 	data->triangle.p2.x = (WIDTH * 3 / 4) - 150;
